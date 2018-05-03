@@ -1,0 +1,18 @@
+<h1>Projects</h1>
+
+<table>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td><%= project.uninvoiced_hours %></td>
+      </tr>
+      <% project.tasks.each do |task| %>
+        <tr>
+          <td><%= task.name %></td>
+          <td><%= task.hours %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
