@@ -16,8 +16,10 @@ class Timesheet::Project
     return if time_entries['time_entries'].length == 0
 
     time_entries['time_entries'].each do |time_entry|
-      add_task(id: time_entry['task']['id'], name: time_entry['task']['name'], hours: time_entry['hours'])
-      add_time_entry(id: time_entry['id'], hours: time_entry['hours'], notes: time_entry['notes'], billable_rate: time_entry['billable_rate'])
+      task = add_task(id: time_entry['task']['id'], name: time_entry['task']['name'], hours: time_entry['hours'])
+      time_entry = add_time_entry(id: time_entry['id'], hours: time_entry['hours'], notes: time_entry['notes'], billable_rate: time_entry['billable_rate'])
+
+      task.amount += time_entry.amount
     end
   end
 
@@ -30,13 +32,21 @@ class Timesheet::Project
       return task.add_hours(params[:hours])
     end
 
-    @tasks.push(Timesheet::Task.new(params))
+    new_task = Timesheet::Task.new(params)
+
+    @tasks.push(new_task)
+
+    new_task
   end
 
   def add_time_entry(params)
     return if time_entry(params[:id])
 
-    @time_entries.push(Timesheet::TimeEntry.new(params))
+    new_time_entry = Timesheet::TimeEntry.new(params)
+
+    @time_entries.push(new_time_entry)
+
+    new_time_entry
   end
 
   def task(id)

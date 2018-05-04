@@ -1,7 +1,13 @@
 class Timesheet::Task
   include ActiveModel::Model
 
-  attr_accessor :id, :name, :hours
+  attr_accessor :id, :name, :hours, :amount
+
+  def initialize(*args)
+    super(*args)
+
+    @amount = 0
+  end
 
   def add_hours(hours)
     @hours += hours
@@ -10,6 +16,6 @@ class Timesheet::Task
   end
 
   def hours
-    @hours.round(2)
+    @hours
   end
 end
