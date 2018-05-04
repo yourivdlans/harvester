@@ -1,4 +1,16 @@
-<%= form_for :project, url: projects_path do |f| %>
+<% if !authenticated_with_moneybird? %>
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Authenticate with Moneybird.</h1>
+      <p>Please click to button below to authenticate with moneybird so we can create an invoice based on the uninvoiced Harvest hours.</p>
+      <p>
+        <%= link_to 'Authenticate »', moneybird_path, class: 'btn btn-primary btn-lg' %>
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<%= form_for SalesInvoice.new, url: projects_path do |f| %>
   <table class="table table-hover">
     <thead class="thead-light">
       <tr>
@@ -17,9 +29,11 @@
           <td><%= project.hours.round(2).to_s(:delimited, separator: ',') %></td>
           <td><%= number_to_currency project.amount %></td>
           <td align="center">
-            <div class="form-check">
-              <%= check_box_tag 'project[id][]', project.id, false, class: 'form-check-input' %>
-            </div>
+            <% if authenticated_with_moneybird? %>
+              <div class="form-check">
+                <%= check_box_tag 'sales_invoice[project_id][]', project.id, false, class: 'form-check-input' %>
+              </div>
+            <% end %>
           </td>
         </tr>
         <% project.tasks.each do |task| %>
@@ -32,13 +46,16 @@
         <% end %>
       <% end %>
     </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4"></td>
-        <td align="center">
-          <button type="button" class="btn btn-outline-success">Create invoice</button>
-        </td>
-      </tr>
-    </tfoot>
+    <% if authenticated_with_moneybird? %>
+      <tfoot>
+        <tr>
+          <td colspan="3"></td>
+          <td></td>
+          <td align="center">
+            <button type="button" class="btn btn-outline-success">Create invoice</button>
+          </td>
+        </tr>
+      </tfoot>
+    <% end %>
   </table>
 <% end %>
