@@ -1,6 +1,10 @@
-<h1>Projects</h1>
-
-<table>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>Projects</th>
+      <th>Uninvoiced hours</th>
+    </tr>
+  </thead>
   <tbody>
     <% @projects.each do |project| %>
       <tr>
@@ -9,7 +13,7 @@
       </tr>
       <% project.tasks.each do |task| %>
         <tr>
-          <td><%= task.name %></td>
+          <td class="pl-4"><%= task.name %></td>
           <td><%= task.hours %></td>
         </tr>
       <% end %>

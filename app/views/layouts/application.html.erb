@@ -5,11 +5,39 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <header class="header clearfix">
+        <!-- <nav>
+          <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </nav> -->
+        <h3 class="text-muted">Harvester</h3>
+      </header>
+
+      <main role="main">
+
+        <%= yield %>
+
+      </main>
+
+      <footer class="footer">
+        <p>&copy; Harvester <%= Time.zone.now.year %></p>
+      </footer>
+
+    </div>
   </body>
 </html>
