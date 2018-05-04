@@ -50,7 +50,11 @@
       <tfoot>
         <tr>
           <td colspan="3"></td>
-          <td></td>
+          <td>
+            <div class="form-group">
+              <%= collection_select :sales_invoice, :contact_id, @contacts.collect { |c| [c['id'], c['company_name']] }, :first, :last, {}, { class: 'form-control' } %>
+            </div>
+          </td>
           <td align="center">
             <button type="button" class="btn btn-outline-success">Create invoice</button>
           </td>
