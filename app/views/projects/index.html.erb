@@ -1,28 +1,44 @@
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th>Project</th>
-      <th>Client</th>
-      <th>Uninvoiced hours</th>
-      <th>Uninvoiced amount</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @projects.each do |project| %>
+<%= form_for :project, url: projects_path do |f| %>
+  <table class="table table-hover">
+    <thead class="thead-light">
       <tr>
-        <td><%= project.name %></td>
-        <td><%= project.client.name %></td>
-        <td><%= project.hours.round(2).to_s(:delimited, separator: ',') %></td>
-        <td><%= number_to_currency project.amount %></td>
+        <th>Project</th>
+        <th>Client</th>
+        <th>Uninvoiced hours</th>
+        <th>Uninvoiced amount</th>
+        <th></th>
       </tr>
-      <% project.tasks.each do |task| %>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
         <tr>
-          <td class="pl-4"><%= task.name %></td>
-          <td></td>
-          <td><%= task.hours.round(2).to_s(:delimited, separator: ',') %></td>
-          <td></td>
+          <td><%= project.name %></td>
+          <td><%= project.client.name %></td>
+          <td><%= project.hours.round(2).to_s(:delimited, separator: ',') %></td>
+          <td><%= number_to_currency project.amount %></td>
+          <td align="center">
+            <div class="form-check">
+              <%= check_box_tag 'project[id][]', project.id, false, class: 'form-check-input' %>
+            </div>
+          </td>
         </tr>
+        <% project.tasks.each do |task| %>
+          <tr>
+            <td class="pl-4"><%= task.name %></td>
+            <td></td>
+            <td><%= task.hours.round(2).to_s(:delimited, separator: ',') %></td>
+            <td colspan="2"></td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4"></td>
+        <td align="center">
+          <button type="button" class="btn btn-outline-success">Create invoice</button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+<% end %>
