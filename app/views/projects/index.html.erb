@@ -4,6 +4,7 @@
       <th>Project</th>
       <th>Client</th>
       <th>Uninvoiced hours</th>
+      <th>Uninvoiced amount</th>
     </tr>
   </thead>
   <tbody>
@@ -11,13 +12,15 @@
       <tr>
         <td><%= project.name %></td>
         <td><%= project.client.name %></td>
-        <td><%= project.hours.to_s(:delimited, separator: ',') %></td>
+        <td><%= project.hours.round(2).to_s(:delimited, separator: ',') %></td>
+        <td><%= number_to_currency project.amount %></td>
       </tr>
       <% project.tasks.each do |task| %>
         <tr>
           <td class="pl-4"><%= task.name %></td>
           <td></td>
-          <td><%= task.hours.to_s(:delimited, separator: ',') %></td>
+          <td><%= task.hours.round(2).to_s(:delimited, separator: ',') %></td>
+          <td></td>
         </tr>
       <% end %>
     <% end %>

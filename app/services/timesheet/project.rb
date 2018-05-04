@@ -17,7 +17,7 @@ class Timesheet::Project
 
     time_entries['time_entries'].each do |time_entry|
       add_task(id: time_entry['task']['id'], name: time_entry['task']['name'], hours: time_entry['hours'])
-      add_time_entry(id: time_entry['id'], hours: time_entry['hours'], notes: time_entry['notes'])
+      add_time_entry(id: time_entry['id'], hours: time_entry['hours'], notes: time_entry['notes'], billable_rate: time_entry['billable_rate'])
     end
   end
 
@@ -48,6 +48,14 @@ class Timesheet::Project
   end
 
   def hours
-    @time_entries.inject(0) { |sum, i| sum + i.hours }.round(2)
+    @time_entries.inject(0) { |sum, i| sum + i.hours }
+  end
+
+  def amount
+    @time_entries.map do |time_entry|
+      next if time_entry.billable_rate.blank?
+
+      time_entry.billable_rate * time_entry.hours
+    end.compact.sum
   end
 end
