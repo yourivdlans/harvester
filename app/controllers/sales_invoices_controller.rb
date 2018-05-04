@@ -10,7 +10,12 @@ class SalesInvoicesController < ApplicationController
     if @sales_invoice.save(access_token: session[:moneybird_access_token]['access_token'])
       redirect_to projects_path, notice: 'Sales invoice has been created.'
     else
-      redirect_to projects_path, error: 'Sales invoice could not be created.'
+      @projects = Timesheet::Base.new.build
+      @contacts = Moneybird.new(session[:moneybird_access_token]['access_token']).contacts
+
+      flash[:alert] = 'Sales invoice could not be created.'
+
+      render template: 'projects/index'
     end
   end
 

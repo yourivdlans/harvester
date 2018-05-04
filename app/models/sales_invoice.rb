@@ -8,6 +8,10 @@ class SalesInvoice
   def save(access_token:)
     return false if invalid?
 
-    response = Moneybird.new(access_token).create_sales_invoice(self)
+    Moneybird.new(access_token).create_sales_invoice(self)
+  rescue Moneybird::Error => e
+    errors.add(:base, e)
+
+    false
   end
 end
