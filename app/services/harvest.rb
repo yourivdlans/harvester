@@ -11,6 +11,12 @@ class Harvest
     JSON.parse(response.to_s)
   end
 
+  def project(id)
+    response = HTTP.headers(auth_headers).get("#{@base_uri}/projects/#{id}.json")
+
+    JSON.parse(response.to_s)
+  end
+
   def time_entries(params = {})
     params.merge!(is_billed: 'false')
 
