@@ -52,10 +52,6 @@ class Timesheet::Project
   end
 
   def amount
-    @time_entries.map do |time_entry|
-      next if time_entry.billable_rate.blank?
-
-      time_entry.billable_rate * time_entry.hours
-    end.compact.sum
+    @time_entries.map(&:amount).sum
   end
 end
