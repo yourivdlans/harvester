@@ -1,7 +1,8 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th>Projects</th>
+      <th>Project</th>
+      <th>Client</th>
       <th>Uninvoiced hours</th>
     </tr>
   </thead>
@@ -9,12 +10,14 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.name %></td>
-        <td><%= project.uninvoiced_hours %></td>
+        <td><%= project.client.name %></td>
+        <td><%= project.hours.to_s(:delimited, separator: ',') %></td>
       </tr>
       <% project.tasks.each do |task| %>
         <tr>
           <td class="pl-4"><%= task.name %></td>
-          <td><%= task.hours %></td>
+          <td></td>
+          <td><%= task.hours.to_s(:delimited, separator: ',') %></td>
         </tr>
       <% end %>
     <% end %>
