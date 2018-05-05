@@ -1,6 +1,6 @@
 class Timesheet::Base
   def build
-    projects = Harvest.new.projects(per_page: 10)
+    projects = Harvest.new.projects(updated_since: (Time.zone.now - 1.year).iso8601)
 
     return if projects['projects'].length == 0
 
