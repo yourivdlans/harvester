@@ -5,9 +5,19 @@ class Timesheet::Base
     return if projects['projects'].length == 0
 
     projects['projects'].map do |project|
-      Timesheet::Project.new(id: project['id'], name: project['name'], client: project['client']).tap do |prj|
-        prj.fetch_time_entries
-      end
+      self.class.new_project(project)
+    end
+  end
+
+  def self.new_project(params)
+    Timesheet::Project.new(
+      id: params['id'],
+      name: params['name'],
+      client: params['client'],
+      starts_on: params['starts_on'],
+      ends_on: params['ends_on']
+    ).tap do |prj|
+      prj.fetch_time_entries
     end
   end
 end

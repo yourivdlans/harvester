@@ -77,8 +77,6 @@ class Moneybird
   def harvest_project(id)
     project = Harvest.new.project(id)
 
-    Timesheet::Project.new(id: project['id'], name: project['name'], client: project['client']).tap do |prj|
-      prj.fetch_time_entries
-    end
+    Timesheet::Base.new_project(project)
   end
 end
