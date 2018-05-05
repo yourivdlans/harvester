@@ -30,6 +30,12 @@ class Moneybird
     parse_response(response)
   end
 
+  def sales_invoices(params = {})
+    response = HTTP.headers(auth_headers).get("#{@base_uri}/sales_invoices.json", params: params)
+
+    parse_response(response)
+  end
+
   def create_sales_invoice(sales_invoice)
     payload = {
       sales_invoice: {
@@ -41,6 +47,16 @@ class Moneybird
     response = HTTP.headers(auth_headers).post("#{@base_uri}/sales_invoices.json", json: payload)
 
     parse_response(response)
+  end
+
+  def paid_projects
+    period = "#{(Time.zone.now - 1.year).strftime('%Y%m')}..#{(Time.zone.now.strftime('%Y%m'))}"
+
+    sales_invoices(filter: "state:paid,period:#{period}").map do |project|
+      project['details'].map do |details|
+        { description: details['description'], period: details['period'] }
+      end
+    end.flatten.uniq
   end
 
   private

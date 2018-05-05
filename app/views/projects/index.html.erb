@@ -27,6 +27,7 @@
         <th>Uninvoiced hours</th>
         <th>Uninvoiced amount</th>
         <th></th>
+        <th align="center">Paid?</th>
       </tr>
     </thead>
     <tbody>
@@ -43,13 +44,22 @@
               </div>
             <% end %>
           </td>
+          <td align="center">
+            <% if authenticated_with_moneybird? %>
+              <% if project.paid?(@paid_projects) %>
+                Yes
+              <% else %>
+                No
+              <% end %>
+            <% end %>
+          </td>
         </tr>
         <% project.tasks.each do |task| %>
           <tr>
             <td class="pl-4"><%= task.name %></td>
             <td></td>
             <td><%= task.hours.round(2).to_s(:delimited, separator: ',') %></td>
-            <td colspan="2"></td>
+            <td colspan="3"></td>
           </tr>
         <% end %>
       <% end %>

@@ -83,4 +83,8 @@ class Timesheet::Project
 
     "#{starts_on.strftime('%Y%m%d')}..#{ends_on.strftime('%Y%m%d')}"
   end
+
+  def paid?(paid_projects)
+    paid_projects.any? { |prj| prj[:description] == name && prj[:period] == period }
+  end
 end
