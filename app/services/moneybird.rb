@@ -67,7 +67,8 @@ class Moneybird
 
       attributes[:"#{i}"] = {
         description: project.name,
-        price: project.amount
+        price: project.amount,
+        period: project.period
       }
     end
 

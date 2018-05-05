@@ -2,6 +2,7 @@ class Timesheet::Project
   include ActiveModel::Model
 
   attr_accessor :id, :name
+  attr_writer :starts_on, :ends_on
   attr_reader :client, :tasks, :time_entries
 
   def initialize(attributes={})
@@ -63,5 +64,23 @@ class Timesheet::Project
 
   def amount
     @time_entries.map(&:amount).sum
+  end
+
+  def starts_on
+    return if @starts_on.blank?
+
+    Date.parse(@starts_on)
+  end
+
+  def ends_on
+    return if @ends_on.blank?
+
+    Date.parse(@ends_on)
+  end
+
+  def period
+    return if starts_on.blank? || ends_on.blank?
+
+    "#{starts_on.strftime('%Y%m%d')}..#{ends_on.strftime('%Y%m%d')}"
   end
 end
