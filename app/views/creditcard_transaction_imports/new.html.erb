@@ -1,0 +1,14 @@
+<h3>Creditcard transactions</h3>
+
+<p>
+  Upload a Rabobank creditcard pdf to be imported into Moneybird.<br />
+  After uploading you have the chance to review the entries and send them to Moneybird.
+</p>
+
+<%= form_for CreditcardTransactionImport.new, multipart: true do |f| %>
+  <div class="form-group">
+    <%= f.file_field :pdf, class: 'form-control-file' %>
+  </div>
+
+  <%= f.submit 'Upload', class: 'btn btn-primary mb-3' %>
+<% end %>

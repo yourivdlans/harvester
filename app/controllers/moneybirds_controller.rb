@@ -15,6 +15,6 @@ class MoneybirdsController < ApplicationController
       return
     end
 
-    redirect_to "https://moneybird.com/oauth/authorize?client_id=#{ENV.fetch('MONEYBIRD_CLIENT_ID')}&redirect_uri=#{redirect_uri}&response_type=code"
+    redirect_to "https://moneybird.com/oauth/authorize?client_id=#{ENV.fetch('MONEYBIRD_CLIENT_ID')}&redirect_uri=#{redirect_uri}&response_type=code&scope=sales_invoices bank"
   end
 end
