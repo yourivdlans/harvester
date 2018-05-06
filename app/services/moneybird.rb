@@ -24,6 +24,12 @@ class Moneybird
     parse_response(response)
   end
 
+  def financial_accounts
+    response = HTTP.headers(auth_headers).get("#{@base_uri}/financial_accounts.json")
+
+    parse_response(response)
+  end
+
   def contacts
     response = HTTP.headers(auth_headers).get("#{@base_uri}/contacts.json")
 
