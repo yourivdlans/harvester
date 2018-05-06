@@ -30,6 +30,18 @@ class Moneybird
     parse_response(response)
   end
 
+  def create_financial_statement(creditcard_transaction_import)
+    payload = {
+      financial_statement: {
+        financial_account_id: creditcard_transaction_import.financial_account_id,
+        reference: "Imported on #{I18n.localize(Time.zone.now, format: :long)}"
+      }
+    }
+    payload[:financial_statement][:financial_mutations_attributes] = build_financial_mutations_attributes(creditcard_transaction_import)
+
+    response = HTTP.headers(auth_headers).post("#{@base_uri}/financial_statements.json", json: payload)
+  end
+
   def contacts
     response = HTTP.headers(auth_headers).get("#{@base_uri}/contacts.json")
 
@@ -91,6 +103,20 @@ class Moneybird
         description: project.name,
         price: project.amount,
         period: project.period
+      }
+    end
+
+    attributes
+  end
+
+  def build_financial_mutations_attributes(creditcard_transaction_import)
+    attributes = {}
+
+    creditcard_transaction_import.creditcard_transactions.each_with_index do |transaction, i|
+      attributes[:"#{i}"] = {
+        date: transaction.date.iso8601,
+        message: transaction.description,
+        amount: transaction.negate_amount
       }
     end
 
