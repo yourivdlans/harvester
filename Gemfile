@@ -37,6 +37,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'http', '~> 3'
 gem 'dotenv-rails', '~> 2'
+gem 'yomu'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '~> 4'
