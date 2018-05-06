@@ -1,0 +1,31 @@
+<h3>Creditcard transactions</h3>
+
+<p>Please verify if these transactions are correct, choose a Moneybird bank account and send them to Moneybird.</p>
+
+<table class="table">
+  <% @creditcard_transaction_import.creditcard_transactions.each do |transaction| %>
+    <tr>
+      <td><%= l transaction.date %></td>
+      <td><%= transaction.description %></td>
+      <td><%= number_to_human transaction.amount %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= form_for @creditcard_transaction_import, url: creditcard_transactions_path, html: { class: 'form-inline d-flex justify-content-end pb-3' } do |f| %>
+  <%= f.fields_for :creditcard_transactions do |t| %>
+    <%= t.hidden_field :date, value: l(t.object.date) %>
+    <%= t.hidden_field :description %>
+    <%= t.hidden_field :amount %>
+  <% end %>
+
+  <label class="mr-sm-2">Choose a Moneybird bank account</label>
+  <%= f.collection_select :financial_account_id,
+                          @financial_accounts.select { |i| i['type'] == 'CreditCardAccount' }.collect { |c| [c['id'], "#{c['name']} #{c['identifier']}"] },
+                          :first,
+                          :last,
+                          {},
+                          { class: 'form-control mr-sm-2' } %>
+
+  <%= submit_tag 'Send to Moneybird', class: 'btn btn-primary' %>
+<% end %>
