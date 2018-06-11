@@ -67,12 +67,12 @@ class Moneybird
     parse_response(response)
   end
 
-  def paid_projects
+  def project_states
     period = "#{(Time.zone.now - 1.year).strftime('%Y%m')}..#{Time.zone.now.strftime('%Y%m')}"
 
-    sales_invoices(filter: "state:paid,period:#{period}").map do |project|
-      project['details'].map do |details|
-        { description: details['description'], period: details['period'] }
+    sales_invoices(filter: "state:all,period:#{period}").map do |invoice|
+      invoice['details'].map do |details|
+        { description: details['description'], period: details['period'], state: invoice['state'] }
       end
     end.flatten.uniq
   end

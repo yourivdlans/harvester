@@ -12,7 +12,7 @@ class SalesInvoicesController < ApplicationController
     else
       @projects = Timesheet::Base.new.build
       @contacts = Moneybird.new(session[:moneybird_access_token]['access_token']).contacts
-      @paid_projects = Moneybird.new(session[:moneybird_access_token]['access_token']).paid_projects
+      @project_states = Moneybird.new(session[:moneybird_access_token]['access_token']).project_states
 
       flash[:alert] = 'Sales invoice could not be created.'
 

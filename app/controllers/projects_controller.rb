@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 
     if authenticated_with_moneybird?
       @contacts = Moneybird.new(session[:moneybird_access_token]['access_token']).contacts
-      @paid_projects = Moneybird.new(session[:moneybird_access_token]['access_token']).paid_projects
+      @project_states = Moneybird.new(session[:moneybird_access_token]['access_token']).project_states
     end
 
     @sales_invoice = SalesInvoice.new

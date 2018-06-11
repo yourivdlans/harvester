@@ -24,10 +24,10 @@
       <tr>
         <th>Project</th>
         <th>Client</th>
-        <th>Uninvoiced hours</th>
-        <th>Uninvoiced amount</th>
+        <th>Hours</th>
+        <th>Amount</th>
         <th></th>
-        <th align="center">Paid?</th>
+        <th>State</th>
       </tr>
     </thead>
     <tbody>
@@ -44,13 +44,9 @@
               </div>
             <% end %>
           </td>
-          <td align="center">
+          <td>
             <% if authenticated_with_moneybird? %>
-              <% if project.paid?(@paid_projects) %>
-                Yes
-              <% else %>
-                No
-              <% end %>
+              <%= project.state(@project_states) %>
             <% end %>
           </td>
         </tr>

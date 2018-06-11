@@ -84,7 +84,11 @@ class Timesheet::Project
     "#{starts_on.strftime('%Y%m%d')}..#{ends_on.strftime('%Y%m%d')}"
   end
 
-  def paid?(paid_projects)
-    paid_projects.any? { |prj| prj[:description] == name && prj[:period] == period }
+  def state(project_states)
+    project_state = project_states.find { |prj| prj[:description] == name && prj[:period] == period }
+
+    return 'Uninvoiced' unless project_state
+
+    project_state[:state].humanize
   end
 end
