@@ -34,12 +34,12 @@ class Moneybird
     payload = {
       financial_statement: {
         financial_account_id: creditcard_transaction_import.financial_account_id,
-        reference: "Imported on #{I18n.localize(Time.zone.now, format: :long)}"
+        reference: "Imported on #{I18n.localize(Time.zone.now, format: :long)}",
       }
     }
     payload[:financial_statement][:financial_mutations_attributes] = build_financial_mutations_attributes(creditcard_transaction_import)
 
-    response = HTTP.headers(auth_headers).post("#{@base_uri}/financial_statements.json", json: payload)
+    HTTP.headers(auth_headers).post("#{@base_uri}/financial_statements.json", json: payload)
   end
 
   def contacts
@@ -57,7 +57,7 @@ class Moneybird
   def create_sales_invoice(sales_invoice)
     payload = {
       sales_invoice: {
-        contact_id: sales_invoice.contact_id
+        contact_id: sales_invoice.contact_id,
       }
     }
     payload[:sales_invoice][:details_attributes] = build_details_attributes(sales_invoice)
@@ -68,7 +68,7 @@ class Moneybird
   end
 
   def paid_projects
-    period = "#{(Time.zone.now - 1.year).strftime('%Y%m')}..#{(Time.zone.now.strftime('%Y%m'))}"
+    period = "#{(Time.zone.now - 1.year).strftime('%Y%m')}..#{Time.zone.now.strftime('%Y%m')}"
 
     sales_invoices(filter: "state:paid,period:#{period}").map do |project|
       project['details'].map do |details|
@@ -89,7 +89,7 @@ class Moneybird
 
   def auth_headers
     {
-      'Authorization' => "Bearer #{@access_token}"
+      'Authorization' => "Bearer #{@access_token}",
     }
   end
 
@@ -102,7 +102,7 @@ class Moneybird
       attributes[:"#{i}"] = {
         description: project.name,
         price: project.amount,
-        period: project.period
+        period: project.period,
       }
     end
 
@@ -116,7 +116,7 @@ class Moneybird
       attributes[:"#{i}"] = {
         date: transaction.date.iso8601,
         message: transaction.description,
-        amount: transaction.negate_amount
+        amount: transaction.negate_amount,
       }
     end
 

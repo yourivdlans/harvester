@@ -5,7 +5,7 @@ class Timesheet::Project
   attr_writer :starts_on, :ends_on
   attr_reader :client, :tasks, :time_entries
 
-  def initialize(attributes={})
+  def initialize(attributes = {})
     super
     @tasks = []
     @time_entries = []
@@ -14,7 +14,7 @@ class Timesheet::Project
   def fetch_time_entries
     time_entries = Harvest.new.time_entries(project_id: id)
 
-    return if time_entries['time_entries'].length == 0
+    return if time_entries['time_entries'].empty?
 
     time_entries['time_entries'].each do |time_entry|
       task = add_task(id: time_entry['task']['id'], name: time_entry['task']['name'], hours: time_entry['hours'])
@@ -29,7 +29,7 @@ class Timesheet::Project
   end
 
   def add_task(params)
-    if task = task(params[:id])
+    if (task = task(params[:id]))
       return task.add_hours(params[:hours])
     end
 
@@ -59,7 +59,7 @@ class Timesheet::Project
   end
 
   def hours
-    @time_entries.inject(0) { |sum, i| sum + i.hours }
+    @time_entries.inject(0) { |acc, elem| acc + elem.hours }
   end
 
   def amount

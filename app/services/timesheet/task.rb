@@ -14,8 +14,4 @@ class Timesheet::Task
 
     self
   end
-
-  def hours
-    @hours
-  end
 end
