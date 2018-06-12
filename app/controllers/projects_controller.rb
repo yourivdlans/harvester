@@ -10,4 +10,10 @@ class ProjectsController < ApplicationController
 
     @sales_invoice = SalesInvoice.new
   end
+
+  def show
+    @project = Timesheet::Project.new(
+      id: params[:id]
+    ).tap(&:fetch_time_entries)
+  end
 end
