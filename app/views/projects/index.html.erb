@@ -1,73 +1,28 @@
-<% if !authenticated_with_moneybird? %>
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-3">Authenticate with Moneybird.</h1>
-      <p>Please click to button below to authenticate with moneybird so we can create an invoice based on the uninvoiced Harvest hours.</p>
-      <p>
-        <%= link_to 'Authenticate »', moneybird_path, class: 'btn btn-primary btn-lg' %>
-      </p>
-    </div>
-  </div>
-<% end %>
-
-<%= form_for @sales_invoice do |f| %>
-  <% if @sales_invoice.errors.any? %>
-    <ul class="list-group mb-3">
-      <% @sales_invoice.errors.full_messages.each do |msg| %>
-        <li class="list-group-item list-group-item-danger"><%= msg %></li>
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.name %></td>
+    <td><%= project.client.name %></td>
+    <td><%= project.hours.round(2).to_s(:delimited, separator: ',') %></td>
+    <td><%= number_to_currency project.amount %></td>
+    <td align="center">
+      <% if authenticated_with_moneybird? %>
+        <div class="form-check">
+          <%= check_box_tag 'sales_invoice[project_id][]', project.id, false, class: 'form-check-input' %>
+        </div>
       <% end %>
-    </ul>
-  <% end %>
-
-  <table class="table table-hover">
-    <thead class="thead-light">
-      <tr>
-        <th>Project</th>
-        <th>Client</th>
-        <th>Hours</th>
-        <th>Amount</th>
-        <th></th>
-        <th>State</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @projects.each do |project| %>
-        <tr>
-          <td><%= project.name %></td>
-          <td><%= project.client.name %></td>
-          <td><%= project.hours.round(2).to_s(:delimited, separator: ',') %></td>
-          <td><%= number_to_currency project.amount %></td>
-          <td align="center">
-            <% if authenticated_with_moneybird? %>
-              <div class="form-check">
-                <%= check_box_tag 'sales_invoice[project_id][]', project.id, false, class: 'form-check-input' %>
-              </div>
-            <% end %>
-          </td>
-          <td>
-            <% if authenticated_with_moneybird? %>
-              <%= project.state(@project_states) %>
-            <% end %>
-          </td>
-        </tr>
-        <% project.tasks.each do |task| %>
-          <tr>
-            <td class="pl-4"><%= task.name %></td>
-            <td></td>
-            <td><%= task.hours.round(2).to_s(:delimited, separator: ',') %></td>
-            <td colspan="3"></td>
-          </tr>
-        <% end %>
+    </td>
+    <td>
+      <% if authenticated_with_moneybird? %>
+        <%= project.state(@project_states) %>
       <% end %>
-    </tbody>
-  </table>
-
-  <% if authenticated_with_moneybird? %>
-    <div class="d-flex justify-content-end mb-3">
-      <div class="form-group mb-0 mr-3">
-        <%= collection_select :sales_invoice, :contact_id, @contacts.collect { |c| [c['id'], c['company_name']] }, :first, :last, {}, { class: 'form-control' } %>
-      </div>
-      <%= f.submit 'Create invoice', class: 'btn btn-outline-success' %>
-    </div>
+    </td>
+  </tr>
+  <% project.tasks.each do |task| %>
+    <tr>
+      <td class="pl-4"><%= task.name %></td>
+      <td></td>
+      <td><%= task.hours.round(2).to_s(:delimited, separator: ',') %></td>
+      <td colspan="3"></td>
+    </tr>
   <% end %>
 <% end %>
