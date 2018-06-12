@@ -1,5 +1,5 @@
 <% @projects.each do |project| %>
-  <tr data-controller="project" data-project-url="/projects/<%= project.id %>.json">
+  <tr data-controller="project" data-project-url="<%= project_path(project.id, format: :json) %>">
     <td><%= project.name %></td>
     <td><%= project.client.name %></td>
     <td data-target="project.hours"></td>
