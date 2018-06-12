@@ -1,6 +1,6 @@
 class MoneybirdsController < ApplicationController
   def show
-    redirect_uri = "http://localhost:3000/moneybird"
+    redirect_uri = 'http://localhost:5000/moneybird'
 
     if params['code']
       access_token_params = {
@@ -8,10 +8,10 @@ class MoneybirdsController < ApplicationController
         client_secret: ENV.fetch('MONEYBIRD_CLIENT_SECRET'),
         code: params['code'],
         redirect_uri: redirect_uri,
-        grant_type: 'authorization_code'
+        grant_type: 'authorization_code',
       }
-      session[:moneybird_access_token] = JSON.parse(HTTP.post('https://moneybird.com/oauth/token', form: access_token_params).to_s)
-      redirect_to projects_path
+      session[:moneybird_access_token] = JSON.parse(HTTP.post('https://moneybird.com/oauth/token', form: access_token_params).to_s)['access_token']
+      redirect_to root_path
       return
     end
 

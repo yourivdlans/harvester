@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  resources :projects, only: :index
+  resource :dashboard, only: :index do
+    get :submit_form
+  end
+  resources :projects, only: [:index, :show]
   resources :sales_invoices, only: :create
   resources :creditcard_transactions, only: :create
   resources :creditcard_transaction_imports, only: [:new, :create]
   resource :moneybird, only: :show
 
-  root 'projects#index'
+  root 'dashboards#index'
 end

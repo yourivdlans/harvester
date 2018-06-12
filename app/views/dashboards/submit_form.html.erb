@@ -1,0 +1,6 @@
+<div class="d-flex justify-content-end mb-3">
+  <div class="form-group mb-0 mr-3">
+    <%= collection_select :sales_invoice, :contact_id, @contacts.collect { |c| [c['id'], c['company_name']] }, :first, :last, {}, { class: 'form-control' } %>
+  </div>
+  <%= submit_tag 'Create invoice', class: 'btn btn-outline-success' %>
+</div>
