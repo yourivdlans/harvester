@@ -11,7 +11,7 @@ class MoneybirdsController < ApplicationController
         grant_type: 'authorization_code'
       }
       session[:moneybird_access_token] = JSON.parse(HTTP.post('https://moneybird.com/oauth/token', form: access_token_params).to_s)
-      redirect_to projects_path
+      redirect_to root_path
       return
     end
 

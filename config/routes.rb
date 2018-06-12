@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   resources :creditcard_transaction_imports, only: [:new, :create]
   resource :moneybird, only: :show
 
-  root 'projects#index'
+  root 'dashboards#index'
 end
