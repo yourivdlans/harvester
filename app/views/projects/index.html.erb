@@ -4,16 +4,16 @@
     <td><%= project.client.name %></td>
     <td data-target="project.hours"></td>
     <td data-target="project.amount"></td>
-    <td align="center">
+    <td>
+      <% if authenticated_with_moneybird? %>
+        <%= project.state(@project_states) %>
+      <% end %>
+    </td>
+    <td class="text-center">
       <% if authenticated_with_moneybird? %>
         <div class="form-check">
           <%= check_box_tag 'sales_invoice[project_id][]', project.id, false, class: 'form-check-input' %>
         </div>
-      <% end %>
-    </td>
-    <td>
-      <% if authenticated_with_moneybird? %>
-        <%= project.state(@project_states) %>
       <% end %>
     </td>
   </tr>
