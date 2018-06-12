@@ -1,9 +1,9 @@
 <% @projects.each do |project| %>
-  <tr>
+  <tr data-controller="project" data-project-url="/projects/<%= project.id %>.json">
     <td><%= project.name %></td>
     <td><%= project.client.name %></td>
-    <td><%= project.hours.round(2).to_s(:delimited, separator: ',') %></td>
-    <td><%= number_to_currency project.amount %></td>
+    <td data-target="project.hours"></td>
+    <td data-target="project.amount"></td>
     <td align="center">
       <% if authenticated_with_moneybird? %>
         <div class="form-check">
