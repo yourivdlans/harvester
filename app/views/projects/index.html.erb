@@ -17,12 +17,4 @@
       <% end %>
     </td>
   </tr>
-  <% project.tasks.each do |task| %>
-    <tr>
-      <td class="pl-4"><%= task.name %></td>
-      <td></td>
-      <td><%= task.hours.round(2).to_s(:delimited, separator: ',') %></td>
-      <td colspan="3"></td>
-    </tr>
-  <% end %>
 <% end %>
