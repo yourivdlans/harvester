@@ -11,10 +11,7 @@ export default class extends Controller {
 
   load() {
     fetch(this.data.get("url"), {
-      credentials: "same-origin",
-      headers: {
-        "X-CSRF-Token": getMetaValue("csrf-token")
-      }
+      credentials: "same-origin"
     }).then(response => response.text())
       .then(response => {
         const json = JSON.parse(response)
@@ -23,9 +20,4 @@ export default class extends Controller {
         this.amountTarget.innerHTML = json.amount
       })
   }
-}
-
-function getMetaValue(name) {
-  const element = document.head.querySelector(`meta[name="${name}"]`)
-  return element.getAttribute("content")
 }
