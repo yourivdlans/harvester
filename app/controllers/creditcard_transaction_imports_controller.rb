@@ -16,7 +16,7 @@ class CreditcardTransactionImportsController < ApplicationController
   def ensure_authenticated_with_moneybird
     return if authenticated_with_moneybird?
 
-    redirect_to projects_path
+    redirect_to root_path
   end
 
   def creditcard_transaction_import_params
