@@ -8,7 +8,7 @@ class CreditcardTransactionImportsController < ApplicationController
     @creditcard_transaction_import = CreditcardTransactionImport.new(creditcard_transaction_import_params)
     @creditcard_transaction_import.creditcard_transactions = RabobankCreditcardPdf.new(@creditcard_transaction_import.pdf.tempfile).parse
 
-    @financial_accounts = Moneybird.new(session[:moneybird_access_token]['access_token']).financial_accounts
+    @financial_accounts = Moneybird.new(session[:moneybird_access_token]).financial_accounts
   end
 
   private

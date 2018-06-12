@@ -4,7 +4,7 @@ class CreditcardTransactionsController < ApplicationController
   def create
     @creditcard_transaction_import = CreditcardTransactionImport.new(creditcard_transaction_import_params)
 
-    @financial_statement = Moneybird.new(session[:moneybird_access_token]['access_token']).create_financial_statement(@creditcard_transaction_import)
+    @financial_statement = Moneybird.new(session[:moneybird_access_token]).create_financial_statement(@creditcard_transaction_import)
 
     redirect_to new_creditcard_transaction_import_path, notice: 'Creditcard transactions have been imported'
   rescue Moneybird::Error => e
