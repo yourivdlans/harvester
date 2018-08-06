@@ -126,6 +126,6 @@ class Moneybird
   def harvest_project(id)
     project = Harvest.new.project(id)
 
-    Timesheet::Base.new_project(project)
+    Timesheet::Base.new_project(project).tap(&:fetch_time_entries)
   end
 end
