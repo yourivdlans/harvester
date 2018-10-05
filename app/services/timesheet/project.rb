@@ -91,4 +91,20 @@ class Timesheet::Project
 
     project_state[:state].humanize
   end
+
+  def uninvoiced_hours_report_url(host)
+    URI::HTTPS.build(
+      host: host,
+      path: '/reports/detailed',
+      query: {
+        projects: id,
+        clients: client.id,
+        start_date: starts_on,
+        end_date: ends_on,
+        billable: 'yes',
+        group: 'dates',
+        only_unbilled: 'yes'
+      }.to_query
+    ).to_s
+  end
 end

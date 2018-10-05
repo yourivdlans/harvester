@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
     @projects = Timesheet::Base.new.build
 
     @project_states = Moneybird.new(session[:moneybird_access_token]).project_states if authenticated_with_moneybird?
+    @harvest_company = Harvest.new.company
   end
 
   def show

@@ -6,7 +6,19 @@
     <td data-target="project.amount"></td>
     <td>
       <% if authenticated_with_moneybird? %>
-        <%= project.state(@project_states) %>
+        <% state = project.state(@project_states) %>
+        <% if state == 'Paid' %>
+          <%= state %>
+        <% else %>
+          <%= state %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% if authenticated_with_moneybird? %>
+        <% if project.state(@project_states) == 'Paid' %>
+          <%= link_to 'Uninvoiced hours', project.uninvoiced_hours_report_url(@harvest_company['full_domain']) %>
+        <% end %>
       <% end %>
     </td>
     <td class="text-center">
