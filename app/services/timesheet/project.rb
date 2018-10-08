@@ -85,11 +85,13 @@ class Timesheet::Project
   end
 
   def state(project_states)
+    return 'unknown' if project_states.blank?
+
     project_state = project_states.find { |prj| prj[:description] == name && prj[:period] == period }
 
-    return 'Uninvoiced' unless project_state
+    return 'uninvoiced' unless project_state
 
-    project_state[:state].humanize
+    project_state[:state]
   end
 
   def uninvoiced_hours_report_url(host)

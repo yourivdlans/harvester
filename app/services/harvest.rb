@@ -11,6 +11,12 @@ class Harvest
     JSON.parse(response.to_s)
   end
 
+  def archive_project(id)
+    response = HTTP.headers(auth_headers).patch("#{@base_uri}/projects/#{id}.json", json: { is_active: false })
+
+    JSON.parse(response.to_s)
+  end
+
   def project(id)
     response = HTTP.headers(auth_headers).get("#{@base_uri}/projects/#{id}.json")
 
