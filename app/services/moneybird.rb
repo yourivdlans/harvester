@@ -68,7 +68,7 @@ class Moneybird
   end
 
   def project_states
-    period = "#{(Time.zone.now - 1.year).strftime('%Y%m')}..#{Time.zone.now.strftime('%Y%m')}"
+    period = "#{(Time.zone.now - 1.year).strftime('%Y%m')}..#{(Time.zone.now + 1.year).strftime('%Y%m')}"
 
     sales_invoices(filter: "state:all,period:#{period}").map do |invoice|
       invoice['details'].map do |details|
