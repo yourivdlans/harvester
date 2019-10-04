@@ -9,6 +9,10 @@ export default class extends Controller {
     this.load()
   }
 
+  renderHours(hours) {
+    return '<a target="_blank" href="'+this.data.get("detailed-time-report-url")+'">'+hours+'</a>';
+  }
+
   load() {
     fetch(this.data.get("url"), {
       credentials: "same-origin"
@@ -16,7 +20,7 @@ export default class extends Controller {
       .then(response => {
         const json = JSON.parse(response)
 
-        this.hoursTarget.innerHTML = json.hours
+        this.hoursTarget.innerHTML = this.renderHours(json.hours)
         this.amountTarget.innerHTML = json.amount
         this.invoiceStateTarget.innerHTML = this.data.get("invoice-state")
 
