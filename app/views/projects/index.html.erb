@@ -1,6 +1,6 @@
 <% @projects.each do |project| %>
   <tr data-controller="project"
-      data-project-invoice-state="<%= project.state(@project_states).humanize %>"
+      data-project-invoice-state="<%= project.state(@sales_invoices).humanize %>"
       data-project-url="<%= project_path(project.id, format: :json) %>"
       data-project-detailed-time-report-url="<%= project.uninvoiced_hours_report_url(@harvest_company['full_domain']) %>">
     <td><%= project.name %></td>

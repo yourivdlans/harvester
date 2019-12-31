@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Timesheet::Base.new.build
 
-    @project_states = authenticated_with_moneybird? ? Moneybird.new(session[:moneybird_access_token]).project_states : []
+    @sales_invoices = authenticated_with_moneybird? ? moneybird.sales_invoices_by_ids(Project.pluck(:moneybird_sales_invoice_id).compact) : []
     @harvest_company = Harvest.new.company
   end
 
@@ -16,5 +16,11 @@ class ProjectsController < ApplicationController
 
   def destroy
     Harvest.new.archive_project(params[:id])
+  end
+
+  private
+
+  def moneybird
+    @moneybird ||= Moneybird.new(session[:moneybird_access_token])
   end
 end

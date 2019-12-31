@@ -4,8 +4,12 @@ class Timesheet::Base
 
     return if projects['projects'].empty?
 
-    projects['projects'].map do |project|
-      self.class.new_project(project)
+    projects['projects'].map do |harvest_project|
+      ::Project.find_or_create_by(harvest_project_id: harvest_project['id']) do |project|
+        project.harvest_project_name = harvest_project['name']
+      end
+
+      self.class.new_project(harvest_project)
     end
   end
 

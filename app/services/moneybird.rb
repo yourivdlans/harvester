@@ -54,6 +54,12 @@ class Moneybird
     parse_response(response)
   end
 
+  def sales_invoices_by_ids(ids)
+    response = HTTP.headers(auth_headers).post("#{@base_uri}/sales_invoices/synchronization.json", json: { ids: ids })
+
+    parse_response(response)
+  end
+
   def create_sales_invoice(sales_invoice)
     payload = {
       sales_invoice: {
@@ -65,16 +71,6 @@ class Moneybird
     response = HTTP.headers(auth_headers).post("#{@base_uri}/sales_invoices.json", json: payload)
 
     parse_response(response)
-  end
-
-  def project_states
-    period = "#{(Time.zone.now - 1.year).strftime('%Y%m')}..#{(Time.zone.now + 1.year).strftime('%Y%m')}"
-
-    sales_invoices(filter: "state:all,period:#{period}").map do |invoice|
-      invoice['details'].map do |details|
-        { description: details['description'], period: details['period'], state: invoice['state'] }
-      end
-    end.flatten.uniq
   end
 
   private
