@@ -30,7 +30,7 @@ export default class extends Controller {
 
         if (json.hours == "0" && this.data.get("invoice-state").toLowerCase() == "paid") {
           this.setArchivedTarget.classList.toggle("d-none")
-        } else if (this.data.get("invoice-state") == "paid") {
+        } else if (json.hours != "0" && !["unknown", "uninvoiced", "draft"].includes(this.data.get("invoice-state").toLowerCase())) {
           this.setInvoicedTarget.classList.toggle("d-none")
         }
       })
