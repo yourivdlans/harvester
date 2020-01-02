@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_31_112324) do
+ActiveRecord::Schema.define(version: 2020_01_02_115142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,9 +18,17 @@ ActiveRecord::Schema.define(version: 2019_12_31_112324) do
   create_table "projects", force: :cascade do |t|
     t.string "harvest_project_id"
     t.string "harvest_project_name"
-    t.string "moneybird_sales_invoice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "sales_invoices", force: :cascade do |t|
+    t.bigint "project_id"
+    t.string "moneybird_sales_invoice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_sales_invoices_on_project_id"
+  end
+
+  add_foreign_key "sales_invoices", "projects"
 end

@@ -84,10 +84,15 @@ class Timesheet::Project
     "#{starts_on.strftime('%Y%m%d')}..#{ends_on.strftime('%Y%m%d')}"
   end
 
-  def state(sales_invoices)
-    return 'unknown' if sales_invoices.blank?
+  def state(moneybird_sales_invoices)
+    return 'unknown' if moneybird_sales_invoices.blank?
 
-    project_state = sales_invoices.find { |sales_invoice| sales_invoice['id'] == Project.find_by(harvest_project_id: id)&.moneybird_sales_invoice_id }
+    project_state = moneybird_sales_invoices.find do |moneybird_sales_invoice|
+      sales_invoice = SalesInvoice.joins(:project).where(projects: { harvest_project_id: id }).newest_first.take
+      next if sales_invoice.blank?
+
+      moneybird_sales_invoice['id'] == sales_invoice.moneybird_sales_invoice_id
+    end
 
     return 'uninvoiced' unless project_state
 

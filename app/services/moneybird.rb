@@ -92,8 +92,8 @@ class Moneybird
   def build_details_attributes(sales_invoice)
     attributes = {}
 
-    sales_invoice.project_id.each_with_index do |project_id, i|
-      project = harvest_project(project_id)
+    sales_invoice.harvest_project_ids.each_with_index do |harvest_project_id, i|
+      project = harvest_project(harvest_project_id)
 
       attributes[:"#{i}"] = {
         description: project.name,

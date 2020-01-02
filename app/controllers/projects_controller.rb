@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Timesheet::Base.new.build
 
-    @sales_invoices = authenticated_with_moneybird? ? moneybird.sales_invoices_by_ids(Project.pluck(:moneybird_sales_invoice_id).compact) : []
+    @moneybird_sales_invoices = authenticated_with_moneybird? ? moneybird.sales_invoices_by_ids(SalesInvoice.pluck(:moneybird_sales_invoice_id).compact) : []
     @harvest_company = Harvest.new.company
   end
 

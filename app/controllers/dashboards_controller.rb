@@ -1,6 +1,6 @@
 class DashboardsController < ApplicationController
   def index
-    @sales_invoice = SalesInvoice.new
+    @moneybird_sales_invoice = MoneybirdSalesInvoice.new
   end
 
   def submit_form
