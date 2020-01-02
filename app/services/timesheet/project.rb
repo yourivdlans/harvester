@@ -84,21 +84,6 @@ class Timesheet::Project
     "#{starts_on.strftime('%Y%m%d')}..#{ends_on.strftime('%Y%m%d')}"
   end
 
-  def state(moneybird_sales_invoices)
-    return 'unknown' if moneybird_sales_invoices.blank?
-
-    project_state = moneybird_sales_invoices.find do |moneybird_sales_invoice|
-      sales_invoice = SalesInvoice.joins(:project).where(projects: { harvest_project_id: id }).newest_first.take
-      next if sales_invoice.blank?
-
-      moneybird_sales_invoice['id'] == sales_invoice.moneybird_sales_invoice_id
-    end
-
-    return 'uninvoiced' unless project_state
-
-    project_state['state']
-  end
-
   def uninvoiced_hours_report_url(host)
     URI::HTTPS.build(
       host: host,

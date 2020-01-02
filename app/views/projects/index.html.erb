@@ -1,8 +1,10 @@
 <% @projects.each do |project| %>
+  <% moneybird_sales_invoice = MoneybirdSalesInvoice.find_moneybird_sales_invoice(project.id, @moneybird_sales_invoices) %>
   <tr data-controller="project"
-      data-project-invoice-state="<%= project.state(@moneybird_sales_invoices).humanize %>"
+      data-project-invoice-state="<%= moneybird_sales_invoice.state.humanize %>"
       data-project-url="<%= project_path(project.id, format: :json) %>"
-      data-project-detailed-time-report-url="<%= project.uninvoiced_hours_report_url(@harvest_company['full_domain']) %>">
+      data-project-detailed-time-report-url="<%= project.uninvoiced_hours_report_url(@harvest_company['full_domain']) %>"
+      data-project-moneybird-sales-invoice-url="<%= moneybird_sales_invoice.sales_invoice_url %>">
     <td><%= project.name %></td>
     <td><%= project.client.name %></td>
     <td data-target="project.hours"></td>
