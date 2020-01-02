@@ -4,13 +4,14 @@
       data-project-invoice-state="<%= moneybird_sales_invoice.state.humanize %>"
       data-project-url="<%= project_path(project.id, format: :json) %>"
       data-project-detailed-time-report-url="<%= project.uninvoiced_hours_report_url(@harvest_company['full_domain']) %>"
-      data-project-moneybird-sales-invoice-url="<%= moneybird_sales_invoice.sales_invoice_url %>">
-    <td><%= project.name %></td>
-    <td><%= project.client.name %></td>
-    <td data-target="project.hours"></td>
-    <td data-target="project.amount"></td>
-    <td data-target="project.invoiceState"></td>
-    <td>
+      data-project-moneybird-sales-invoice-url="<%= moneybird_sales_invoice.sales_invoice_url %>"
+  >
+    <td class="align-middle"><%= project.name %></td>
+    <td class="align-middle"><%= project.client.name %></td>
+    <td class="align-middle" data-target="project.hours"></td>
+    <td class="align-middle" data-target="project.amount"></td>
+    <td class="align-middle" data-target="project.invoiceState"></td>
+    <td class="align-middle">
       <%= link_to 'Set hours invoiced', project.uninvoiced_hours_report_url(@harvest_company['full_domain']), target: :_blank, data: { target: 'project.setInvoiced' }, class: 'd-none btn btn-light' %>
       <%= link_to 'Archive', '#', data: { target: 'project.setArchived', action: 'project#archive' }, class: 'd-none btn btn-light' %>
     </td>
