@@ -27,6 +27,8 @@ class MoneybirdSalesInvoice
   end
 
   def sales_invoice_url
+    return unless json_payload
+
     URI::HTTPS.build(
       host: 'moneybird.com',
       path: "/#{json_payload['administration_id']}/sales_invoices/#{json_payload['id']}"
