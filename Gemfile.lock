@@ -69,6 +69,9 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    debase (0.2.4.1)
+      debase-ruby_core_source (>= 0.10.2)
+    debase-ruby_core_source (0.10.11)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.4.0)
@@ -77,7 +80,7 @@ GEM
       railties (>= 3.2, < 6.0)
     erubi (1.8.0)
     execjs (2.7.0)
-    ffi (1.9.23)
+    ffi (1.13.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     http (3.3.0)
@@ -158,6 +161,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    ruby-debug-ide (0.7.2)
+      rake (>= 0.8.1)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.6)
@@ -223,6 +228,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15, < 4.0)
   chromedriver-helper
+  debase (~> 0.2.4)
   dotenv-rails (~> 2)
   http (~> 3)
   listen (>= 3.0.5, < 3.2)
@@ -232,6 +238,7 @@ DEPENDENCIES
   rails (~> 5.2.0)
   rails-assets-bootstrap (~> 4)!
   rails-assets-jquery (~> 3)!
+  ruby-debug-ide (~> 0.7.2)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
@@ -243,7 +250,7 @@ DEPENDENCIES
   yomu
 
 RUBY VERSION
-   ruby 2.5.1p57
+   ruby 2.6.6p146
 
 BUNDLED WITH
-   1.17.3
+   2.1.4

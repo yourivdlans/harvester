@@ -112,7 +112,7 @@ class Moneybird
       attributes[:"#{i}"] = {
         date: transaction.date.iso8601,
         message: transaction.description,
-        amount: transaction.negate_amount,
+        amount: transaction.amount
       }
     end
 

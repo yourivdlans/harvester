@@ -12,7 +12,7 @@ class CreditcardTransaction
   end
 
   def amount
-    @amount.sub(',', '.').to_f
+    @amount.delete(' ').sub(',', '.').to_f
   end
 
   def negate_amount

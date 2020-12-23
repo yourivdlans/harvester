@@ -7,7 +7,7 @@
     <tr>
       <td><%= l transaction.date %></td>
       <td><%= transaction.description %></td>
-      <td><%= number_to_human transaction.amount %></td>
+      <td><%= number_to_currency transaction.amount %></td>
     </tr>
   <% end %>
 </table>

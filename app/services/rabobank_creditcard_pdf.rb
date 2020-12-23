@@ -6,9 +6,11 @@ class RabobankCreditcardPdf
   def parse
     data = File.read(@file_path)
     text = Yomu.read(:text, data)
-    result = text.gsub(/\\n/, "\n")
 
-    rows = result.scan(/(\d{2}-\d{2}-\d{4})\s(\w.*?)\s*?(-?\d{1,3},\d{2})\s*(-?\d{1,3},\d{2})?/)
+    date = /(\d{2}-\d{2}-\d{4})/
+    number = /((?:-\s)?\d{1,3},\d{2})/
+
+    rows = text.scan(/#{date}\s(.*?#{number})\n\n(?:Koers\s\d\.\d{1,10}\n\n)?#{number}?/)
 
     rows.map do |col|
       new_creditcard_transaction(col)
@@ -18,15 +20,16 @@ class RabobankCreditcardPdf
   private
 
   def new_creditcard_transaction(params)
-    if params[3].blank?
-      amount = params[2]
-      description = params[1]
-    else
-      amount = params[3]
-      description = "#{params[1]} #{params[2]}"
-    end
+    amount = if params[3].blank?
+               params[2]
+             else
+               params[3]
+             end
 
-    return if amount[0] == '-'
+    description = params[1]
+
+    return if description.downcase.include?('vorig overzicht')
+    return if description.downcase.include?('koersopslag')
 
     CreditcardTransaction.new(date: params[0], description: description, amount: amount)
   end
