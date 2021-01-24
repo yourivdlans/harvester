@@ -39,7 +39,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'http', '~> 3'
 gem 'dotenv-rails', '~> 2'
-gem 'yomu'
+
+# Read pdf files
+gem 'henkei', '~> 1.23'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '~> 4'

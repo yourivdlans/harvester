@@ -83,6 +83,9 @@ GEM
     ffi (1.13.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    henkei (1.23.1)
+      json (>= 1.8, < 3)
+      mime-types (>= 1.23, < 4)
     http (3.3.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -230,6 +233,7 @@ DEPENDENCIES
   chromedriver-helper
   debase (~> 0.2.4)
   dotenv-rails (~> 2)
+  henkei (~> 1.23)
   http (~> 3)
   listen (>= 3.0.5, < 3.2)
   pg
@@ -253,4 +257,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   2.1.4
+   2.2.4

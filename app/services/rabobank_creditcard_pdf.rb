@@ -5,7 +5,7 @@ class RabobankCreditcardPdf
 
   def parse
     data = File.read(@file_path)
-    text = Yomu.read(:text, data)
+    text = Henkei.read(:text, data)
 
     date = /(\d{2}-\d{2}-\d{4})/
     number = /((?:-\s)?\d{1,3},\d{2})/
