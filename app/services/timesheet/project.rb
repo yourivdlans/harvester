@@ -78,12 +78,6 @@ class Timesheet::Project
     Date.parse(@ends_on)
   end
 
-  def period
-    return if starts_on.blank? || ends_on.blank?
-
-    "#{starts_on.strftime('%Y%m%d')}..#{ends_on.strftime('%Y%m%d')}"
-  end
-
   def uninvoiced_hours_report_url(host)
     URI::HTTPS.build(
       host: host,
