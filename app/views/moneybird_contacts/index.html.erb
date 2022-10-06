@@ -1,0 +1,3 @@
+<% @contacts.each do |contact| %>
+  <li class="list-group-item" role="option" data-autocomplete-value="<%= contact['id'] %>"><%= contact['company_name'] %></li>
+<% end %>

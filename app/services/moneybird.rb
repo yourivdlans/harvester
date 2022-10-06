@@ -42,8 +42,10 @@ class Moneybird
     HTTP.headers(auth_headers).post("#{@base_uri}/financial_statements.json", json: payload)
   end
 
-  def contacts
-    response = HTTP.headers(auth_headers).get("#{@base_uri}/contacts.json")
+  def contacts(query = nil)
+    url = "#{@base_uri}/contacts.json"
+    url << "?query=#{query}" if query
+    response = HTTP.headers(auth_headers).get(url)
 
     parse_response(response)
   end

@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
   end
 
   def harvest_company
-    Rails.cache.fetch("harvest_company", expires_in: 12.hours) do
+    Rails.cache.fetch('harvest_company', expires_in: 12.hours) do
       Harvest.new.company
     end
   end

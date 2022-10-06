@@ -35,9 +35,9 @@ class MoneybirdSalesInvoice
     ).to_s
   end
 
-  def self.find_moneybird_sales_invoice(project_id, moneybird_sales_invoices)
+  def self.find_moneybird_sales_invoice(harvest_project_id, moneybird_sales_invoices)
     json_payload = moneybird_sales_invoices.find do |moneybird_sales_invoice|
-      sales_invoice = SalesInvoice.joins(:project).where(projects: { harvest_project_id: project_id }).newest_first.take
+      sales_invoice = SalesInvoice.joins(:project).where(projects: { harvest_project_id: harvest_project_id }).newest_first.take
       next if sales_invoice.blank?
 
       moneybird_sales_invoice['id'] == sales_invoice.moneybird_sales_invoice_id
