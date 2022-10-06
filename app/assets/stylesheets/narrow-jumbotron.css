@@ -33,11 +33,11 @@ body {
 }
 
 /* Customize container */
-// @media (min-width: 48em) {
-//   .container {
-//     max-width: 46rem;
-//   }
-// }
+/* @media (min-width: 48em) {
+  .container {
+    max-width: 46rem;
+  }
+} */
 .container-narrow > hr {
   margin: 2rem 0;
 }
@@ -47,6 +47,7 @@ body {
   text-align: center;
   border-bottom: .05rem solid #e5e5e5;
 }
+
 .jumbotron .btn {
   padding: .75rem 1.5rem;
   font-size: 1.5rem;
@@ -56,12 +57,18 @@ body {
 .marketing {
   margin: 3rem 0;
 }
+
 .marketing p + h4 {
   margin-top: 1.5rem;
 }
 
+table td.align-right {
+  text-align: right;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 48em) {
+
   /* Remove the padding we set earlier */
   .header,
   .marketing,

@@ -1,3 +1,2 @@
-web: bundle exec rails s
-webpacker: ./bin/webpack-dev-server
+web: bin/rails s -p 5000
 db: docker-compose up

@@ -5,7 +5,7 @@
   After uploading you have the chance to review the entries and send them to Moneybird.
 </p>
 
-<%= form_for CreditcardTransactionImport.new, multipart: true do |f| %>
+<%= form_for CreditcardTransactionImport.new, multipart: true, data: { turbo: false } do |f| %>
   <div class="form-group">
     <%= f.file_field :pdf, class: 'form-control-file' %>
   </div>

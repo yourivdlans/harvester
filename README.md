@@ -6,7 +6,11 @@ Combining the excellent time tracking of Harvest with the amazing invoicing (and
 
 ## Installation
 
-First run `bin/setup`.
+Ensure a java runtime is available
+
+`brew install openjdk@11`
+
+Then run `bin/setup`.
 
 ### Moneybird
 

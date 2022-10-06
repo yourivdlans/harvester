@@ -1,4 +1,4 @@
 <%= raw({
-  hours: @project.hours.round(2).to_s(:delimited, separator: ','),
+  hours: @project.hours.round(2).to_s,
   amount: number_to_currency(@project.amount)
 }.to_json) %>

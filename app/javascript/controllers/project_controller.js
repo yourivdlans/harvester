@@ -1,6 +1,6 @@
 import {
   Controller
-} from "stimulus"
+} from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["hours", "amount", "invoiceState", "setInvoiced", "setArchived"]
