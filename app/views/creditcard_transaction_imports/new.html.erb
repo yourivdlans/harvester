@@ -10,5 +10,8 @@
     <%= f.file_field :pdf, class: 'form-control-file' %>
   </div>
 
-  <%= f.submit 'Upload', class: 'btn btn-primary mb-3' %>
+  <div class="mb-3">
+    <%= link_to 'Back', root_path, class: 'btn btn-secondary' %>
+    <%= f.submit 'Upload', class: 'btn btn-primary' %>
+  </div>
 <% end %>
