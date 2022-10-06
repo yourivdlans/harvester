@@ -9,10 +9,13 @@ class Timesheet::Project
     super
     @tasks = []
     @time_entries = []
+    @time_entries_fetched = false
   end
 
   def fetch_time_entries
     time_entries = Harvest.new.time_entries(project_id: id)
+
+    @time_entries_fetched = true
 
     return if time_entries['time_entries'].empty?
 
@@ -22,6 +25,10 @@ class Timesheet::Project
 
       task.amount += time_entry.amount
     end
+  end
+
+  def time_entries_fetched?
+    @time_entries_fetched == true
   end
 
   def client=(params)

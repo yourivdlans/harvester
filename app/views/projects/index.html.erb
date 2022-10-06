@@ -1,26 +1,7 @@
 <% @projects.each do |project| %>
-  <% moneybird_sales_invoice = MoneybirdSalesInvoice.find_moneybird_sales_invoice(project.id, @moneybird_sales_invoices) %>
   <tr data-controller="project"
-      data-project-invoice-state="<%= moneybird_sales_invoice.state.humanize %>"
-      data-project-url="<%= project_path(project.id, format: :json) %>"
-      data-project-detailed-time-report-url="<%= project.uninvoiced_hours_report_url(@harvest_company['full_domain']) %>"
-      data-project-moneybird-sales-invoice-url="<%= moneybird_sales_invoice.sales_invoice_url %>"
+      data-project-url-value="<%= project_path(project.id) %>"
   >
-    <td class="align-middle"><%= project.name %></td>
-    <td class="align-middle"><%= project.client.name %></td>
-    <td class="align-middle" data-project-target="hours"></td>
-    <td class="align-middle" data-project-target="amount"></td>
-    <td class="align-middle" data-project-target="invoiceState"></td>
-    <td class="align-middle">
-      <%= link_to 'Set hours invoiced', project.uninvoiced_hours_report_url(@harvest_company['full_domain']), target: :_blank, data: { project_target: 'setInvoiced' }, class: 'd-none btn btn-light' %>
-      <%= link_to 'Archive', '#', data: { project_target: 'setArchived', action: 'project#archive' }, class: 'd-none btn btn-light' %>
-    </td>
-    <td class="text-center">
-      <% if authenticated_with_moneybird? %>
-        <div class="form-check">
-          <%= check_box_tag 'moneybird_sales_invoice[harvest_project_ids][]', project.id, false, class: 'form-check-input' %>
-        </div>
-      <% end %>
-    </td>
+    <%= render 'project', project: project, harvest_company: nil, moneybird_sales_invoice: nil %>
   </tr>
 <% end %>

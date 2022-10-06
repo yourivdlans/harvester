@@ -1,0 +1,34 @@
+<td class="align-middle"><%= project.name %></td>
+<td class="align-middle"><%= project.client.name %></td>
+<td class="align-middle">
+  <% if project&.time_entries_fetched? && harvest_company %>
+    <%= link_to project.hours.round(2), project.uninvoiced_hours_report_url(harvest_company['full_domain']), target: :_blank %>
+  <% end %>
+</td>
+<td class="align-middle">
+  <% if project&.time_entries_fetched? %>
+    <%= number_to_currency(project.amount) %>
+  <% end %>
+</td>
+<td class="align-middle">
+  <% if moneybird_sales_invoice %>
+    <%= link_to moneybird_sales_invoice.state.humanize, moneybird_sales_invoice.sales_invoice_url, target: :_blank %>
+  <% end %>
+</td>
+<td class="align-right">
+  <% if project&.time_entries_fetched? && moneybird_sales_invoice && harvest_company %>
+    <% if project.hours == 0 && moneybird_sales_invoice.state == "paid" %>
+      <%= link_to 'Archive', '#', data: { action: 'project#archive' }, class: 'btn btn-warning' %>
+    <% elsif project.hours != 0 && !%w[unknown uninvoiced draft].include?(moneybird_sales_invoice.state.downcase) %>
+      <%= link_to 'Set hours invoiced', project.uninvoiced_hours_report_url(harvest_company['full_domain']), target: :_blank, class: 'btn btn-success' %>
+    <% end %>
+  <% end %>
+  <%= link_to 'Refresh', '#', data: { action: 'project#refresh' }, class: 'btn btn-info' %>
+</td>
+<td class="text-center">
+  <% if authenticated_with_moneybird? %>
+    <div class="form-check">
+      <%= check_box_tag 'moneybird_sales_invoice[harvest_project_ids][]', project.id, false, class: 'form-check-input' %>
+    </div>
+  <% end %>
+</td>
