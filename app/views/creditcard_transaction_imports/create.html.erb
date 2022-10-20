@@ -4,11 +4,11 @@
 
 <table class="table">
   <% @creditcard_transaction_import.creditcard_transactions.each do |transaction| %>
-    <tr>
+    <%= content_tag :tr, class: (transaction.amount.zero? ? 'table-danger' : nil) do %>
       <td><%= l transaction.date %></td>
       <td><%= transaction.description %></td>
       <td><%= number_to_currency transaction.amount %></td>
-    </tr>
+    <% end %>
   <% end %>
 </table>
 

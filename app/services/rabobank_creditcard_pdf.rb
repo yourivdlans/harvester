@@ -10,7 +10,7 @@ class RabobankCreditcardPdf
     date = /(\d{2}-\d{2}-\d{4})/
     number = /((?:-\s)?\d{1,3},\d{2})/
 
-    rows = text.scan(/#{date}\s(.*?#{number})\n\n(?:Koers\s\d\.\d{1,10}\n\n)?#{number}?/)
+    rows = text.scan(/#{date}\s(.*?#{number})\n\n(?:Koers\s\d?\.\d{1,10}\n\n)?#{number}?/)
 
     rows.map do |col|
       new_creditcard_transaction(col)
@@ -21,7 +21,7 @@ class RabobankCreditcardPdf
 
   def new_creditcard_transaction(params)
     amount = if params[3].blank?
-               params[2]
+               '0,00'
              else
                params[3]
              end
