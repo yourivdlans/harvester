@@ -21,7 +21,7 @@
 
   <label class="mr-sm-2">Choose a Moneybird bank account</label>
   <%= f.collection_select :financial_account_id,
-                          @financial_accounts.select { |i| i['type'] == 'CreditCardAccount' }.collect { |c| [c['id'], "#{c['name']} #{c['identifier']}"] },
+                          @financial_accounts.collect { |c| [c['id'], "#{c['name']} #{c['identifier']}"] },
                           :first,
                           :last,
                           {},
