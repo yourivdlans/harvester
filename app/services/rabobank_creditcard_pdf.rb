@@ -20,17 +20,22 @@ class RabobankCreditcardPdf
   private
 
   def new_creditcard_transaction(params)
-    amount = if params[3].blank?
-               '0,00'
-             else
-               params[3]
-             end
-
+    amount = amount_from_params(params)
     description = params[1]
 
     return if description.downcase.include?('vorig overzicht')
     return if description.downcase.include?('koersopslag')
 
     CreditcardTransaction.new(date: params[0], description: description, amount: amount)
+  end
+
+  def amount_from_params(params)
+    if params[2].blank? && params[3].blank?
+      '0,00'
+    elsif params[3].present?
+      params[3]
+    else
+      params[2]
+    end
   end
 end
